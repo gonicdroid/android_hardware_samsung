@@ -26,7 +26,8 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-#include <cutils/log.h>
+#include <unistd.h>
+#include <log/log.h>
 #include <cutils/properties.h>
 
 #include <samsung_audio.h>

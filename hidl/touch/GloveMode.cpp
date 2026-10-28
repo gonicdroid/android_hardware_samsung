@@ -33,11 +33,23 @@ bool GloveMode::isSupported() {
         }
         file.close();
     }
+#ifdef TSP_SENSITIVITY_NODE
+    std::ifstream sens(TSP_SENSITIVITY_NODE);
+    if (sens.is_open()) {
+        return true;
+    }
+#endif
     return false;
 }
 
 // Methods from ::vendor::lineage::touch::V1_0::IGloveMode follow.
 Return<bool> GloveMode::isEnabled() {
+#ifdef TSP_SENSITIVITY_NODE
+    std::ifstream sens(TSP_SENSITIVITY_NODE);
+    if (sens.is_open()) {
+        return mEnabled;
+    }
+#endif
     std::ifstream file(TSP_CMD_RESULT_NODE);
     if (file.is_open()) {
         std::string line;
@@ -49,6 +61,14 @@ Return<bool> GloveMode::isEnabled() {
 }
 
 Return<bool> GloveMode::setEnabled(bool enabled) {
+#ifdef TSP_SENSITIVITY_NODE
+    std::ofstream sens(TSP_SENSITIVITY_NODE);
+    if (sens.is_open()) {
+        sens << (enabled ? "1" : "0");
+        mEnabled = enabled;
+        return true;
+    }
+#endif
     std::ofstream file(TSP_CMD_NODE);
     file << "glove_mode," << (enabled ? "1" : "0");
     return true;

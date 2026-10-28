@@ -41,11 +41,15 @@ LOCAL_SHARED_LIBRARIES := \
 	libsecril-client
 
 
+LOCAL_HEADER_LIBRARIES += ril_headers
+
 LOCAL_C_INCLUDES += \
+	$(TARGET_SPECIFIC_HEADER_PATH) \
 	$(LOCAL_PATH)/include \
 	external/tinyalsa/include \
 	external/tinycompress/include \
 	hardware/libhardware/include \
+	hardware/ril/include \
 	hardware/samsung/ril/libsecril-client \
 	$(call include-path-for, audio-utils) \
 	$(call include-path-for, audio-route) \
@@ -54,8 +58,9 @@ LOCAL_C_INCLUDES += \
 LOCAL_CFLAGS := -Werror -Wall
 LOCAL_CFLAGS += -DPREPROCESSING_ENABLED
 
-LOCAL_MODULE := audio.primary.$(TARGET_BOOTLOADER_BOARD_NAME)
+LOCAL_MODULE := audio.primary.$(TARGET_BOARD_PLATFORM)
 
+LOCAL_PROPRIETARY_MODULE := true
 LOCAL_MODULE_RELATIVE_PATH := hw
 
 LOCAL_MODULE_TAGS := optional
