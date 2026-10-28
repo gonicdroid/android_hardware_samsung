@@ -47,6 +47,8 @@ class GloveMode : public IGloveMode {
     Return<bool> setEnabled(bool enabled) override;
 
     // Methods from ::android::hidl::base::V1_0::IBase follow.
+  private:
+    bool mEnabled = false;
 };
 
 }  // namespace samsung

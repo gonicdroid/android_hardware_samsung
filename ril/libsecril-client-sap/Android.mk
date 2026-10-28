@@ -16,7 +16,11 @@ LOCAL_SHARED_LIBRARIES := \
 
 LOCAL_CFLAGS := 
 
+LOCAL_HEADER_LIBRARIES := ril_headers
+LOCAL_C_INCLUDES += hardware/ril/include
+
 LOCAL_MODULE:= libsecril-client-sap
 LOCAL_PRELINK_MODULE := false
+LOCAL_PROPRIETARY_MODULE := true
 
 include $(BUILD_SHARED_LIBRARY)

@@ -26,7 +26,13 @@ ifeq ($(TARGET_USES_VND_SECRIL), true)
 LOCAL_CFLAGS += -DUSES_VND_SECRIL
 endif
 
+LOCAL_HEADER_LIBRARIES := ril_headers
+LOCAL_EXPORT_HEADER_LIBRARY_HEADERS := ril_headers
+LOCAL_C_INCLUDES += hardware/ril/include
+LOCAL_EXPORT_C_INCLUDE_DIRS := $(LOCAL_PATH) hardware/ril/include
+
 LOCAL_MODULE:= libsecril-client
 LOCAL_PRELINK_MODULE := false
+LOCAL_PROPRIETARY_MODULE := true
 
 include $(BUILD_SHARED_LIBRARY)
