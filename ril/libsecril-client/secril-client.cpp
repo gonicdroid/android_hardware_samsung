@@ -15,6 +15,8 @@
 
 #include <unistd.h>
 #include <errno.h>
+#include <signal.h>
+#include <sys/socket.h>
 #include <cutils/sockets.h>
 #include <netinet/in.h>
 #include <sys/types.h>
@@ -326,6 +328,7 @@ int RegisterErrorCallback(HRilClient client, RilOnError cb, void *data) {
  */
 extern "C"
 HRilClient OpenClient_RILD(void) {
+    signal(SIGPIPE, SIG_IGN);
     HRilClient client = (HRilClient)malloc(sizeof(struct RilClient));
     if (client == NULL)
         return NULL;
@@ -1593,7 +1596,7 @@ static int blockingWrite(int fd, const void *buffer, size_t len) {
     while (writeOffset < len) {
         do
         {
-            written = write(fd, toWrite + writeOffset, len - writeOffset);
+            written = send(fd, toWrite + writeOffset, len - writeOffset, MSG_NOSIGNAL);
         } while (written < 0 && errno == EINTR);
 
         if (written >= 0) {
