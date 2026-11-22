@@ -220,16 +220,16 @@ uint32_t Vibrator::effectToMs(Effect effect, Status* status) {
 
     switch (effect) {
         case Effect::CLICK:
-            return 20;
+            return 35;
         case Effect::DOUBLE_CLICK:
-            return 25;
+            return 40;
         case Effect::HEAVY_CLICK:
-            return 30;
+            return 60;
         case Effect::TICK:
         case Effect::TEXTURE_TICK:
         case Effect::THUD:
         case Effect::POP:
-            return 15;
+            return 20;
         case Effect::RINGTONE_1:
         case Effect::RINGTONE_2:
         case Effect::RINGTONE_3:
